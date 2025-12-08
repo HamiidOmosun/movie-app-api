@@ -1,9 +1,18 @@
-import react from 'react';
+import {Route, Routes} from "react-router";
+import React, {useState} from "react";
+import HomePage from "./assets/Pages/HomePage.jsx";
+import NavBar from "./assets/components/NavBar.jsx";
 
 const App = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    //states are
+
     return (
         <>
-            <h1>test</h1>
+            <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            <Routes>
+                <Route path="/" element={ <HomePage /> }/>
+            </Routes>
         </>
     )
 }
