@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, {useEffect} from 'react';
+import Title from "./Title";
 
-const MovieTrends = () => {
+const MovieTrends = ({ text }) => {
     async function MovieTrends() {
         try{
             const res = await axios.get ("url")
@@ -15,7 +16,7 @@ const MovieTrends = () => {
 
     })
     return (
-        <div>MovieTrends</div>
+        <Title text="Movie trends" />
     )
 }
 export default MovieTrends
