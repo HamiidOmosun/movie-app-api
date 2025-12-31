@@ -2,7 +2,7 @@ import React from 'react'
 import f1 from "../images/f1.jpg";
 import NavBar from "../components/NavBar.jsx";
 import HeroSection from "../components/HeroSection.jsx";
-import TrendMovie from "../components/TrendMovie.jsx";
+import MovieList from "../components/MovieList.jsx";
 
 const HomePage = ({searchTerm, setSearchTerm}) => {
     return (
@@ -12,7 +12,6 @@ const HomePage = ({searchTerm, setSearchTerm}) => {
                 {/*<NavBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />*/}
                 <HeroSection />
             </div>
-            <TrendMovie />
         </>
     )
 }
