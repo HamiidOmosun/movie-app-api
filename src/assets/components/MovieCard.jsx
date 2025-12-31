@@ -11,7 +11,7 @@ const MovieCard = ({ movie:
 
                 <div className="">
                     <div className="">
-
+                        <p>{release_date}</p>
                     </div>
                 </div>
             </div>
