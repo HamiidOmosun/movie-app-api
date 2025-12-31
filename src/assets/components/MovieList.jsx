@@ -1,17 +1,20 @@
 import React from 'react'
+import Spinner from "./Spinner.jsx";
+import Title from "./Title.jsx";
+import MovieCard from "./MovieCard.jsx";
 
 const MovieList = ({movies, error, setError, loading, setLoading}) => {
     return (
-        <div className="bg-black text-white px-24 pt-12">
-            <h1 className="text-2xl">All movies</h1>
+        <div className="bg-black text-white px-24 pt-12 ">
+            <Title text="All Movies" />
 
             {loading ? (
-                <p className="text-white">Loading...</p>
+                <Spinner />
             ) : error ? (
                 <p className="text-red-500">{error}</p>
-            ) : <ul>
+            ) : <ul className="mt-6 grid gap-4 sm:flex sm:flex-col md:grid md:grid-cols-3 lg:grid-cols-4">
                 {movies.map((movie) => (
-                   <p className="text-white text-xl">{movie.title}</p>
+                   <MovieCard key={movie.id} movie={movie}/>
                 ))}
             </ul>}
         </div>
