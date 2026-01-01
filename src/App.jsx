@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import HomePage from "./assets/Pages/HomePage.jsx";
 import NavBar from "./assets/components/NavBar.jsx";
 import MovieList from "./assets/components/MovieList.jsx";
+import { useDebounce } from "react-use";
 
 //API application programming interface
 
@@ -27,11 +28,18 @@ const App = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const fetchMovies = async () => {
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+    useDebounce(() => setDebouncedSearchTerm(searchTerm), 500,
+        [searchTerm]);
+
+    const fetchMovies = async (query = '') => {
         setIsLoading(true);
         setErrorMessage("");
         try {
-            const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`
+            const endpoint = query
+                ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+                : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`
 
             const res = await fetch(endpoint, API_OPTIONS);
 
@@ -42,7 +50,7 @@ const App = () => {
             const data = await res.json();
 
             if(data.res === 'false') {
-                setErrorMessage(data.Error || 'Falied to fetch movies');
+                setErrorMessage(data.Error || 'Failed to fetch movies');
                 setMovieList([]);
                 return;
             }
@@ -58,8 +66,8 @@ const App = () => {
     }
 
     useEffect(() => {
-        fetchMovies();
-    }, [])
+        fetchMovies(debouncedSearchTerm);
+    }, [debouncedSearchTerm]);
 
     return (
         <>
