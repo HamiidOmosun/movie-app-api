@@ -3,9 +3,29 @@ import Spinner from "./Spinner.jsx";
 import Title from "./Title.jsx";
 import MovieCard from "./MovieCard.jsx";
 
-const MovieList = ({movies, error, setError, loading, setLoading}) => {
+const MovieList = ({movies, error, setError, loading, setLoading, trend, setTrend}) => {
     return (
-        <div className="bg-black text-white px-24 pt-12 ">
+        <div className="bg-black text-white px-5 md:px-24 pt-12 ">
+
+            {trend.length > 0 && (
+                <section className="mb-12">
+                    <Title text="Trending Movies" />
+
+                    <ul className="flex flex-row gap-10 mt-10 overflow-x-auto">
+                        {trend.map((movie) => (
+                            <li key={movie.$id} className="flex-shrink-0">
+                                <img
+                                    src={movie.poster_url}
+                                    alt={movie.title}
+                                    className="w-40 sm:w-48 md:w-56 rounded-lg"
+                                />
+                            </li>
+                        ))}
+                    </ul>
+
+                </section>
+            )}
+
             <Title text="All Movies" />
 
             {loading ? (

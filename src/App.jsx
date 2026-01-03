@@ -1,10 +1,10 @@
 import {Route, Routes} from "react-router";
-import React, {useEffect, useState} from "react";
+import React, {use, useEffect, useState} from "react";
 import HomePage from "./assets/Pages/HomePage.jsx";
 import NavBar from "./assets/components/NavBar.jsx";
 import MovieList from "./assets/components/MovieList.jsx";
 import { useDebounce } from "react-use";
-import {updateSearchCount} from "./appwrite.js";
+import {getTrendingMovies, updateSearchCount} from "./appwrite.js";
 
 //API application programming interface
 
@@ -26,6 +26,8 @@ const App = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const [movieList, setMovieList] = useState([]);
+
+    const [trendingMovies, setTrendingMovies] = useState([]);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -52,7 +54,7 @@ const App = () => {
 
             const data = await res.json();
 
-            if(data.res === 'false') {
+            if(data.result === 'false') {
                 setErrorMessage(data.Error || 'Failed to fetch movies');
                 setMovieList([]);
                 return;
@@ -72,9 +74,23 @@ const App = () => {
         }
     }
 
+    const loadTrendingMovies = async () => {
+        try{
+            const movies = await getTrendingMovies();
+
+            setTrendingMovies(movies);
+        } catch (error) {
+            console.log(`Error fetching trending movies: ${error}`);
+        }
+    }
+
     useEffect(() => {
         fetchMovies(debouncedSearchTerm);
     }, [debouncedSearchTerm]);
+
+    useEffect( () => {
+        loadTrendingMovies()
+    }, [])
 
     return (
         <>
@@ -82,7 +98,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={ <HomePage /> }/>
             </Routes>
-            <MovieList movies={movieList} error={errorMessage} setError={setErrorMessage} loading={isLoading} setLoading={setIsLoading} />
+            <MovieList movies={movieList} error={errorMessage} setError={setErrorMessage} loading={isLoading} setLoading={setIsLoading}  trend={trendingMovies} setTrend={setTrendingMovies} />
         </>
     )
 }

@@ -38,8 +38,9 @@ export  const updateSearchCount = async (searchTerm, movie) => {
 export const getTrendingMovies = async () => {
     try{
        const result = await database.listDocuments(DATABASE_ID, TABLE_ID, [
-            Query.limit(limit:5),
-            Query.orderDesc("count")
+           Query.limit(5),
+
+           Query.orderDesc("count")
        ])
 
         return result.documents;

@@ -7,7 +7,7 @@ import MovieList from "../components/MovieList.jsx";
 const HomePage = ({searchTerm, setSearchTerm}) => {
     return (
         <>
-            <div className="bg-center bg-cover bg-no-repeat px-16"
+            <div className="bg-center bg-cover bg-no-repeat md:px-16"
                  style={{backgroundImage: `url(${f1})`}}>
                 {/*<NavBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />*/}
                 <HeroSection />
