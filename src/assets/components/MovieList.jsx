@@ -11,7 +11,7 @@ const MovieList = ({movies, error, setError, loading, setLoading, trend, setTren
                 <section className="mb-12">
                     <Title text="Trending Movies" />
 
-                    <ul className="flex flex-row gap-10 mt-10 overflow-x-auto">
+                    <ul className="flex flex-row gap-10 mt-10 overflow-x-auto no-scrollbar">
                         {trend.map((movie) => (
                             <li key={movie.$id} className="flex-shrink-0">
                                 <img
